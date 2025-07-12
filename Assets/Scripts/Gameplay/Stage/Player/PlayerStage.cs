@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Sources:
+ * - https://docs.unity3d.com/Packages/com.unity.inputsystem@1.3/api/UnityEngine.InputSystem.PlayerInput.html
+ * - https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/ActionBindings.html
+ */
+
 namespace RM_SPS_GME_00
 {
     // The player on the game stage.
@@ -46,6 +52,7 @@ namespace RM_SPS_GME_00
         // Moves in the provided direction multiplied by speed.
         public void Move(Vector2 direc)
         {
+            // Uses the normalized vector for direction and calculates with move speed.
             Vector2 force = direc.normalized * moveSpeed;
             rigidbody2D.AddForce(force, ForceMode2D.Impulse);
         }
@@ -60,6 +67,7 @@ namespace RM_SPS_GME_00
         public void MoveInput(InputAction.CallbackContext context)
         {
             // Debug.Log("Move Input!");
+            // Debug.Log(playerInput.currentControlScheme);
 
             // If inputs are enabled.
             if(inputsEnabled)
@@ -69,6 +77,7 @@ namespace RM_SPS_GME_00
                 {
                     // Gets the direction vector and calls the move function.
                     Vector2 direc = context.ReadValue<Vector2>();
+
                     Move(direc);
                 }
                 // Context has been cancelled.
